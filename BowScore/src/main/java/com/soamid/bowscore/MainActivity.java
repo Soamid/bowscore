@@ -1,8 +1,8 @@
 package com.soamid.bowscore;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,22 +14,15 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import com.soamid.bowscore.persistance.ScoreDataManager;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     private int currentViewId = -1;
 
@@ -52,6 +45,8 @@ public class MainActivity extends ActionBarActivity {
     private ArrayAdapter<String> sessionsResultsAdapter;
     private ArrayAdapter<Date> sessionsAdapter;
 
+    private ScoreDataManager scoreDataManager;
+
     private AdapterView.OnItemClickListener onSessionClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -69,14 +64,9 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_main);
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
-
+        scoreDataManager = new ScoreDataManager(getApplicationContext());
         loadSavedData();
 
     }
@@ -97,11 +87,10 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.action_clear_all:
+                sessions.clear();
+                loadSessions();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -125,44 +114,16 @@ public class MainActivity extends ActionBarActivity {
 
 
     public void saveData() {
-
-
-        ArrayList<Date> dates = new ArrayList<Date>();
-        ArrayList<List<List<String>>> results = new ArrayList<List<List<String>>>();
-
-        for (Date date : sessions.keySet()) {
-            dates.add(date);
-            results.add(sessions.get(date));
-        }
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("bow_score_save.bin")));
-            oos.writeObject(dates);
-            oos.writeObject(results);
-            oos.flush();
-            oos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        scoreDataManager.saveData(sessions);
     }
 
     public void loadSavedData() {
+        Map<Date, List<List<String>>> loadedData = scoreDataManager.loadData();
 
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("bow_score_save.bin")));
-            ArrayList<List<List<String>>> results = (ArrayList<List<List<String>>>) ois.readObject();
-            ArrayList<Date> dates = (ArrayList<Date>) ois.readObject();
-
-
-            for (int i = 0; i < dates.size(); i++) {
-                sessions.put(dates.get(i), results.get(i));
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        if(loadedData != null) {
+            sessions = loadedData;
         }
+
     }
 
     @Override
@@ -191,12 +152,19 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+
     public void newSessionButtonOnClick(View v) {
 
         sessionResults = new ArrayList<List<String>>();
 
-        Date sessionDate = new Date();
+        Date sessionDate = new FormattedDate();
         sessions.put(sessionDate, sessionResults);
+
         sessionsAdapter.add(sessionDate);
 
         loadSessionResults();
@@ -256,4 +224,5 @@ public class MainActivity extends ActionBarActivity {
         sb.trimToSize();
         return sb.toString();
     }
+
 }

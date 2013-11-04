@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BowScore/BowScore.iml" filepath="$PROJECT_DIR$/BowScore/BowScore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BowScore/BowScore-BowScore.iml" filepath="$PROJECT_DIR$/BowScore/BowScore-BowScore.iml" />
       <module fileurl="file://$PROJECT_DIR$/BowScoreProject.iml" filepath="$PROJECT_DIR$/BowScoreProject.iml" />
     </modules>
   </component>
