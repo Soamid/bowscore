@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="76dp">
+
+        <Button
+            android:layout_width="63dp"
+            android:layout_height="fill_parent"
+            android:text="0"
+            android:id="@+id/Button0"
+            android:onClick="resultOnClick" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="5"
+            android:id="@+id/Button5"
+            android:onClick="resultOnClick" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="6"
+            android:id="@+id/Button6"
+            android:onClick="resultOnClick" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="7"
+            android:id="@+id/Button7"
+            android:onClick="resultOnClick" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="76dp"
+            android:text="8"
+            android:id="@+id/Button8"
+            android:onClick="resultOnClick" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:text="9"
+            android:id="@+id/Button9"
+            android:onClick="resultOnClick" />
+
+        <Button
+            android:layout_width="63dp"
+            android:layout_height="77dp"
+            android:text="10"
+            android:id="@+id/button"
+            android:onClick="resultOnClick" />
+
+    </TableRow>
+
+    <TextView
+        android:layout_width="98dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Current Result:"
+        android:id="@+id/textView" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/currentResultLabel"
+        android:layout_marginTop="4dp" />
+
+</LinearLayout>
