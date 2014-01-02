@@ -1,4 +1,4 @@
-package com.soamid.bowscore;
+package com.soamid.bowscore.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class FormattedDate extends Date {
 
-    private SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+    private SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     public FormattedDate() {
         super();

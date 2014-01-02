@@ -2,7 +2,9 @@
 <resources>
 
     <string name="app_name">BowScore</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="results">Results</string>
+    <string name="new_result">Add Result</string>
+    <string name="session">Session</string>
     <string name="action_clear_all">Clear sessions</string>
 
 </resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Result"
+        android:id="@+id/addResultButton"
+        android:layout_centerHorizontal="true"
+        android:onClick="addResultsButtonOnClick" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/resultsListView"
+        android:layout_below="@+id/addResultButton"
+        tools:listitem="@android:layout/simple_list_item_1" />
+
+    <com.soamid.bowscore.slidinglayer.SlidingLayer xmlns:slidingLayer="http://schemas.android.com/apk/res-auto"
+        android:layout_alignParentTop="true"
+        android:id="@+id/addResultLayer"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        slidingLayer:stickTo="top"
+        slidingLayer:closeOnTapEnabled="true">
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/new_result"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true" />
+
+    </com.soamid.bowscore.slidinglayer.SlidingLayer>
+
+
+</RelativeLayout>
