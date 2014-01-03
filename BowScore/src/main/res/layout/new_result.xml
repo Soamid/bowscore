@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0b0b1b">
+    android:background="#0b0b1b"
+    android:onClick="resultOnClick">
 
-    <TableRow
+    <!--TableRow
         android:layout_width="fill_parent"
         android:layout_height="76dp">
 
@@ -65,7 +67,17 @@
             android:id="@+id/button"
             android:onClick="resultOnClick" />
 
-    </TableRow>
+    </TableRow-->
+
+        <ImageView
+            android:layout_width="320dp"
+            android:layout_height="320dp"
+
+            android:id="@+id/boardImageView"
+            android:src="@drawable/board"
+            android:onClick="resultOnClick" />
+
+
 
     <TextView
         android:layout_width="98dp"

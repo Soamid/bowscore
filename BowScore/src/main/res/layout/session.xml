@@ -25,9 +25,9 @@
         android:layout_alignParentTop="true"
         android:id="@+id/addResultLayer"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         slidingLayer:stickTo="top"
-        slidingLayer:closeOnTapEnabled="true">
+        slidingLayer:closeOnTapEnabled="false">
 
         <include
             android:layout_width="match_parent"

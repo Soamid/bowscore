@@ -2,6 +2,7 @@ package com.soamid.bowscore.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -69,26 +70,12 @@ public class SessionActivity extends Activity {
         slidingLayer = (SlidingLayer) findViewById(R.id.addResultLayer);
         addResultController = new AddResultController(slidingLayer);
 
-        slidingLayer.setOnInteractListener(new SlidingLayer.OnInteractListener() {
-            @Override
-            public void onOpen() {
-
-            }
+        slidingLayer.setOnInteractListener(new SlidingLayer.OnInteractListener.Stub() {
 
             @Override
             public void onClose() {
-
-            }
-
-            @Override
-            public void onOpened() {
-
-            }
-
-            @Override
-            public void onClosed() {
-                if (addResultController.getCurrentResult().size() == AddResultController.MAX_RESULTS) {
-                    onActivityResult(addResultController.getCurrentResult());
+                if (addResultController.isResultReady()) {
+                    appendNewResult(addResultController.getCurrentResult());
                 }
             }
         });
@@ -113,11 +100,16 @@ public class SessionActivity extends Activity {
         loadSessionResults();
     }
 
-    protected void onActivityResult(List<String> result) {
+    protected void appendNewResult(List<String> result) {
         sessionResults.add(result);
 
-        ((ListView) findViewById(R.id.resultsListView)).setAdapter(sessionsResultsAdapter);
+
         sessionsResultsAdapter.add(FormatUtil.formatResult(result));
+        sessionsResultsAdapter.notifyDataSetChanged();
+
+        ListView resultsListView = (ListView) findViewById(R.id.resultsListView);
+        resultsListView.setSelection(resultsListView.getCount() - 1);
+
 
         SessionDAO.getInstance().save();
 
